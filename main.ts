@@ -21,12 +21,31 @@ namespace myTiles {
 . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . 
 `
+    //% blockIdentity=images._tile
+    export const tile1 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
 }
 sprites.onCreated(SpriteKind.Projectile, function (sprite) {
     info.changeScoreBy(1)
 })
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
-    The_Flying_Saucer.vy = 10
+    The_Flying_Saucer.vy = -10
 })
 sprites.onOverlap(SpriteKind.saucer, SpriteKind.Projectile, function (sprite, otherSprite) {
     if (info.life() > 1) {
@@ -36,6 +55,10 @@ sprites.onOverlap(SpriteKind.saucer, SpriteKind.Projectile, function (sprite, ot
         game.over(false)
         music.wawawawaa.play()
     }
+})
+scene.onHitWall(SpriteKind.saucer, function (sprite) {
+    animation.stopAnimation(animation.AnimationTypes.All, The_Flying_Saucer)
+    info.setLife(0)
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     The_Flying_Saucer.vy = -10
@@ -194,6 +217,21 @@ The_Flying_Saucer.setPosition(30, 80)
 The_Flying_Saucer.setVelocity(40, 0)
 info.setLife(3)
 info.setScore(0)
+tiles.setTilemap(tiles.createTilemap(
+            hex`0a0008000404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404040404`,
+            img`
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+. . . . . . . . . . 
+`,
+            [myTiles.tile0,sprites.castle.tileGrass2,sprites.builtin.forestTiles0,sprites.castle.shrub,sprites.castle.saplingPine,myTiles.tile1,sprites.castle.saplingOak],
+            TileScale.Sixteen
+        ))
 game.onUpdate(function () {
     if (projectile.y < Math.randomRange(50, 100)) {
         projectile.vy = 45
@@ -258,5 +296,5 @@ game.onUpdateInterval(1000, function () {
 . . . . . . c e 7 7 e e e e 6 7 e e . . . . . . 
 . . . . . . c e 6 e e e e e e 6 e e . . . . . . 
 `, 0, -100)
-    projectile.x = 50
+    projectile.x = Math.randomRange(0, 200)
 })

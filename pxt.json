@@ -2,7 +2,8 @@
     "name": "Karim Chan's CompSci MADPID Project",
     "dependencies": {
         "device": "*",
-        "corgio": "*"
+        "corgio": "*",
+        "animation": "*"
     },
     "description": "",
     "files": [
