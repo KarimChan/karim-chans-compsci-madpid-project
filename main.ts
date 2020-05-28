@@ -1,5 +1,5 @@
-controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-	
+controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
+    The_Flying_Saucer.vy = 10
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     The_Flying_Saucer.vy = -10
