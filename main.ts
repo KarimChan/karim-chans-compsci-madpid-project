@@ -1,5 +1,41 @@
+namespace SpriteKind {
+    export const saucer = SpriteKind.create()
+}
+namespace myTiles {
+    //% blockIdentity=images._tile
+    export const tile0 = img`
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . 
+`
+}
+sprites.onCreated(SpriteKind.Projectile, function (sprite) {
+    info.changeScoreBy(1)
+})
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     The_Flying_Saucer.vy = 10
+})
+sprites.onOverlap(SpriteKind.saucer, SpriteKind.Projectile, function (sprite, otherSprite) {
+    if (info.life() > 1) {
+        info.changeLifeBy(-1)
+        music.siren.playUntilDone()
+    } else {
+        game.over(false)
+        music.wawawawaa.play()
+    }
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
     The_Flying_Saucer.vy = -10
@@ -153,10 +189,11 @@ b d 1 1 1 1 1 1 d d d d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 d d d 
 . . . . . . . . b b b d d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 d d b b b . . . . . . . . 
 . . . . . . . . . . . b b b b b d d d 1 1 1 1 1 1 1 1 1 1 1 d d d b b b b b . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . b b b b b b b b b b b b b b b b b . . . . . . . . . . . . . . . . 
-`, SpriteKind.Player)
+`, SpriteKind.saucer)
 The_Flying_Saucer.setPosition(30, 80)
 The_Flying_Saucer.setVelocity(40, 0)
-scene.cameraFollowSprite(The_Flying_Saucer)
+info.setLife(3)
+info.setScore(0)
 game.onUpdate(function () {
     if (projectile.y < Math.randomRange(50, 100)) {
         projectile.vy = 45
