@@ -156,6 +156,7 @@ b d 1 1 1 1 1 1 d d d d 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 d d d 
 `, SpriteKind.Player)
 The_Flying_Saucer.setPosition(30, 80)
 The_Flying_Saucer.setVelocity(40, 0)
+scene.cameraFollowSprite(The_Flying_Saucer)
 game.onUpdate(function () {
     if (projectile.y < Math.randomRange(50, 100)) {
         projectile.vy = 45
